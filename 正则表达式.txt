@@ -1,0 +1,70 @@
+re:
+re.findall('(.*?)',html)
+
+
+beautifulsoup4:
+soup = BeautifulSoup(html,'html.parser')
+ul = soup.find('ul',attrs={'class':''div'})
+ul.find('li')
+ul.find_all('li')
+
+lxml:
+import lxml.html
+tree = lxml.html.fromstring(html)
+td = tree.cssselect('tr#places_area_row > td.w2p_fw')[0]
+
+css:
+选择所有标签：*
+选择<a>标签：a
+选择所有class=‘link'的元素：.link
+选择class="link"的<a>标签：a.link
+选择id="home"的<a>标签：a.link
+选择父元素为<a>标签的所有<span>子标签：a>span
+选择<a>标签内部的所有<span>标签：a span
+选择title属性为"home"的所有<a>标签：a[title=Home]
+
+
+
+
+XPath符号
+
+    nodename 选取此节点的所有子节点
+    / 从根节点选取
+    // 从匹配选择的当前节点文档中，而不考虑他们位置
+    . 选取当前节点。
+    .. 选取当前节点的父节点
+    @ 选取属性
+    * 表示通配
+    | 连接多个表达式，做并集操作
+
+
+比较常用
+import requests
+from lxml import etree
+
+res = requests.get('https://www.baidu.com/').content.decode('utf-8')
+
+print(res)
+# 使用etree.HTML()完成标签优化，准备解析
+html = etree.HTML(res)
+print(html)
+print(html.xpath('string(//*[@id="u1"]/a[@name="tj_trtieba"]/@href)'))
+title = exam_html.xpath('string(//*[@id="content"]/h1)')
+quest = exam_html.xpath('string(//*[@id="content"]/p[2])')
+analyse = exam_html.xpath('string(//*[@id="content"]/p[3])')
+
+
+这个用的少一些
+import requests
+from lxml import html
+
+url="http://econpy.pythonanywhere.com/ex/001.html"
+page=requests.get(url)
+tree=html.fromstring(page.text)
+
+buyer=tree.xpath('//div[@title="buyer-name"]/text()')
+prices=tree.xpath('//span[@class="item-price"]/text()')
+
+print (buyer)
+print (prices)
+
